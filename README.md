@@ -22,3 +22,4 @@ This project analyzes betting strategies in the casino game Baccarat using stati
 Baccarat is typically considered an unbeatable game due to its fixed dealing rules and large shoe size (6–8 decks). Unlike Blackjack, card counting is generally ineffective for the Banker and Player bets. However, some rare card compositions (e.g., an excess of even cards) can drastically increase the odds on the Tie bet, creating occasional high-value betting opportunities. By assigning values to odd/even cards, players can track these rare favorable conditions and adjust their wagers accordingly, and these are the situations we will also be analysing in our project.
 
 Probam ce dela 
+Se enkrat 
