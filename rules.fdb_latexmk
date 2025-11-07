@@ -1,13 +1,13 @@
 # Fdb version 4
-["biber rules"] 1762543811 "rules.bcf" "rules.bbl" "rules" 1762543831 0
+["biber rules"] 1762543811 "rules.bcf" "rules.bbl" "rules" 1762544726 0
   "./sources.bib" 1760950146 274 ecccaf9ce270d6c7ced379de59b8e7d6 ""
-  "rules.bcf" 1762543830 107769 f9231e3758c4750e82a8652d0b8261c3 "pdflatex"
+  "rules.bcf" 1762544725 107769 f9231e3758c4750e82a8652d0b8261c3 "pdflatex"
   (generated)
   "rules.bbl"
   "rules.blg"
   (rewritten before read)
-["pdflatex"] 1762543830 "/Users/anamariapotokar/Desktop/Baccarat/Baccarat/rules.tex" "rules.pdf" "rules" 1762543831 0
-  "/Users/anamariapotokar/Desktop/Baccarat/Baccarat/rules.tex" 1762543771 3953 0f832a792d71094ffac8f4acbab87cb1 ""
+["pdflatex"] 1762544725 "/Users/anamariapotokar/Desktop/Baccarat/Baccarat/rules.tex" "rules.pdf" "rules" 1762544726 0
+  "/Users/anamariapotokar/Desktop/Baccarat/Baccarat/rules.tex" 1762544724 3913 dee69e432a3789f9c78ede7b1e4f26ca ""
   "/usr/local/texlive/2023/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1136849721 2900 1537cc8184ad1792082cd229ecc269f4 ""
   "/usr/local/texlive/2023/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2023/texmf-dist/fonts/tfm/jknappen/ec/tcrm1200.tfm" 1136768653 1536 74b7293ec3713bb7fdca8dd1bd1f469c ""
@@ -123,11 +123,11 @@
   "/usr/local/texlive/2023/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1680265421 4623355 b8cad38412faebe1ce5b780a45db67bd ""
   "/usr/local/texlive/2023/texmf-var/web2c/pdftex/pdflatex.fmt" 1680265411 7883480 918ef36eafab6b91b5cf0770e155a1d2 ""
   "/usr/local/texlive/2023/texmf.cnf" 1678822455 577 1b2b1af17af2508fb20dd85783af4050 ""
-  "rules.aux" 1762543830 1117 d663aa37c070ec959221e41a772bebd7 "pdflatex"
+  "rules.aux" 1762544725 1117 d663aa37c070ec959221e41a772bebd7 "pdflatex"
   "rules.bbl" 1762543828 1667 f1fcb3375b95df2aa7b8010c042f6366 "biber rules"
-  "rules.out" 1762543830 252 f21195506d05c775b4e23e37fa5d5924 "pdflatex"
-  "rules.run.xml" 1762543830 2309 db370940a197956c76cd4264fc28244e "pdflatex"
-  "rules.tex" 1762543771 3953 0f832a792d71094ffac8f4acbab87cb1 ""
+  "rules.out" 1762544725 252 f21195506d05c775b4e23e37fa5d5924 "pdflatex"
+  "rules.run.xml" 1762544725 2309 db370940a197956c76cd4264fc28244e "pdflatex"
+  "rules.tex" 1762544724 3913 dee69e432a3789f9c78ede7b1e4f26ca ""
   (generated)
   "rules.aux"
   "rules.bcf"
