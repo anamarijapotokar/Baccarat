@@ -14,10 +14,8 @@ def build_shoe(number_of_decks = 8):
     random.shuffle(shoe)
     return shoe
 
-# We then define drawing cards from a shoe. If there aren't enough cards left to finish a game of Baccarat, we rebuild a fresh shoe.
+# We then define drawing cards from a shoe.
 def draw(shoe):
-    if len(shoe) < 6:
-        shoe[:] = build_shoe(number_of_decks = 8)
     return shoe.pop()
 
 # Computing hand values.
@@ -33,6 +31,67 @@ def first_deal(shoe):
     banker = [draw(shoe), draw(shoe)]
     return player, banker
 
-# def banker_draws_third(banker_total, player_third):
-#     if player_third is None:
-#         return banker_total <= 
+# The Banker draws third card rules.
+def banker_draws_third(banker_total, player_third_value):
+    if banker_total <= 2:
+        return True
+    if banker_total == 3:
+        return player_third_value != 8
+    if banker_total == 4:
+        return player_third_value in {2, 3, 4, 5, 6, 7}
+    if banker_total == 5:
+        return player_third_value in {4, 5, 6, 7}
+    if banker_total == 6:
+        return player_third_value in {6, 7}
+    else:
+        return False
+    
+def decide_outcome(player_total, banker_total):
+    if player_total > banker_total:
+        return 'Player'
+    elif banker_total > player_total:
+        return 'Banker'
+    else:
+        return 'Tie'
+    
+def play_bacc(shoe):
+
+    # Ensure enough cards before the hand starts.
+    if len(shoe) < 6:
+        shoe[:] = build_shoe(8)
+    # We first deal the initial two hands.
+    player, banker = first_deal(shoe)
+
+    # Computing the initial values of each hand.
+    player_total = hand_value(player)
+    banker_total = hand_value(banker)
+
+    # Natural wins:
+    if player_total in {8, 9} or banker_total in {8, 9}:
+        return decide_outcome(player_total, banker_total) # tuki bi lahko mogoče returnala use statse po koncu igre?
+    
+    else:
+        player_third = None
+        if player_total <= 5:
+            player_third = draw(shoe)
+            player.append(player_third)
+            player_total = hand_value(player)
+
+        banker_third = None
+
+        if player_third is not None:
+            player_third_value = values[player_third]
+        else:
+            player_third_value = 0
+        
+        if banker_draws_third(banker_total, player_third_value):
+            banker_third = draw(shoe)
+            banker.append(banker_third)
+            banker_total = hand_value(banker)
+
+        return decide_outcome(player_total, banker_total)  
+
+        
+
+
+
