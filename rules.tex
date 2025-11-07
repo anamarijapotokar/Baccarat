@@ -1,0 +1,90 @@
+\documentclass[12pt]{article}
+
+% Paketi
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel} % ali [english] za angleščino
+\usepackage{amsmath, amssymb}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{geometry}
+\usepackage{titlesec}
+\usepackage{csquotes}
+\usepackage{biblatex}
+\usepackage{array}
+\titlelabel{\thetitle.\quad}
+\geometry{a4paper, margin=2.5cm}
+
+\addbibresource{sources.bib}
+
+% Naslovne informacije
+\title{How to play Baccarat}
+\author{}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\section{Introduction}
+This document summarizes the basic rules of the casino game \textit{Baccarat}, based on information from an official casino website~\cite{venetianBaccarat}.
+
+\section{Overview of Baccarat}
+The object of Baccarat is to bet on one of two hands, the one you think \textit{will come closest to 9,} where $9$ is the highest hand. Bets are placed before cards are dealt from the shoe, where the shoe holds $8$ decks of cards. In some versions of the game, you can also bet that the hands will ultimately tie, and that is the version we will be using. The hands are called \textit{Player} and \textit{Banker}.
+
+\subsection*{Card values}
+Cards have the following values:
+\begin{itemize}
+    \item Aces count as $1$;
+    \item the numbered cards are worth the value stated on them, except for $10$;
+    \item the $10$s and the face cards (Jack, Queen and King) have a $0$ value;
+    \item no Jokers are used in Baccarat.
+\end{itemize}
+
+\subsection*{Rules}
+Both hands are given $2$ hands to start with, and the card values are then added up together to give a total. As mentioned, the highest possible value is $9$, and the lowest is $0$. If the sum of the card values exceeds $9$, the last digit gives you the hand value. \\
+
+\noindent The following can happen after the first round of cards is dealt:
+\begin{itemize}
+    \item If the Banker and/or Player hand has a total of \textbf{8} or \textbf{9} on the first two cards, no further cards are drawn; that is what we also call a natural win.
+    \item A Player hand having \textbf{0} to \textbf{5} must draw $1$ card; a Player hand with \textbf{6} or \textbf{7} must stand.
+\end{itemize}
+
+\newpage
+\noindent The Banker hand stands or draws one card as directed by the chart:
+
+\begin{center}
+\begin{tabular}{|>{\raggedright\arraybackslash}p{5cm}|
+                >{\raggedright\arraybackslash}p{5cm}|
+                >{\raggedright\arraybackslash}p{5cm}|}
+\hline
+When the Banker's first two cards total: & Draws when the Player's third card is: & Doesn't draw when the Player's third card is: \\ \hline
+$0, 1, 2$ & Always draws. & / \\ \hline
+$3$ & $1, 2, 3, 4, 5, 6, 7, 9, 0$ & $8$ \\ \hline
+$4$ & $2, 3, 4, 5, 6, 7$ & $1, 8, 9, 0$ \\ \hline
+$5$ & $4, 5, 6, 7$ & $1, 2, 3, 8, 9, 0$ \\ \hline
+$6$ & $6, 7$ & $1, 2, 3, 8, 9, 0$ \\ \hline
+$7$ & / & Always stands. \\ \hline
+$8, 9$ & / & Natural stands. \\ \hline
+\end{tabular}
+\end{center}
+ 
+\noindent If the player didn't draw a third card, the Banker draws a third card based on the chart for the Player's third card being equal to $0$.
+
+\subsection*{Additional bets}
+There is an additional bet called \textit{Pairs}, where you are betting yhat the first two cards on either the Banker's or the Player's hands are a pair.
+Another additional proposition wager is called \textit{Lucky 6,} where you are betting on any winning two-card Banker hand totaling $6$ or any winning three-card Banker hand totaling 6.
+
+\subsection*{Payouts}
+Standard payouts for different bets are as follows:
+
+\begin{itemize}
+    \item Betting on the Player hand: $1$ to $1$.
+    \item Betting on the Banker hand: $1$ to $1$ minus $5$\% commission.
+    \item Betting on a Tie: $8$ to $1$, sometimes even $9$ to $1$.
+    \item Betting on Pairs: $12$ to $1$.
+    \item Betting on Lucky $6$: $13$ to $1$ on any winning two-card Banker hand and $21$ to $1$ on any winning three-card Banker hand (totaling $6$).
+\end{itemize}    
+
+\printbibliography
+
+\end{document}
