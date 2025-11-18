@@ -8,7 +8,7 @@ bankroll_martingale = 100
 bet = 1
 
 # izbereš Banker/Player/TIe
-bet_type = "Player"
+bet_type = "Banker"
 
 flat_results = []
 martingale_results = []
@@ -31,10 +31,10 @@ for i in range(1, hands_number + 1):
         flat_results.append(bankroll_flat)
 
     if bankroll_flat <= 0:
-        print(f"Bankrup flat at hand {i}")
+        print(f"Bankrup flat at hand {i} by betting on {bet_type}")
         break
 else:
-    print("Flat didn't bankrupt")
+    print(f"Flat didn't bankrupt by betting on {bet_type}")
 
 #print(flat_results)
 print()
@@ -60,8 +60,8 @@ for i in range(1, hands_number + 1):
 
     
     if  bankroll_martingale <= 0:
-        print(f"Bankrupt martingale at hand {i}")
+        print(f"Bankrupt martingale at hand {i} by betting on {bet_type}")
         break
 else:
-    print("Martingale didn't bankrupt")
+    print(f"Martingale didn't bankrupt by betting on {bet_type}")
 #print(martingale_results)
