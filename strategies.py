@@ -61,13 +61,14 @@ def simulate_flat(outcomes, initial_bankroll, base_bet, bet_type):
 # So the idea is that one win recovers all previous losses and also gives us a small profit.
 # The problem is that you very quickly hit either the table limit or your bankroll limit, and then blow up.
 def simulate_martingale(outcomes, initial_bankroll, base_bet, bet_type):
+   
     bankroll = initial_bankroll
     path = []
     current_bet = base_bet
 
     for outcome in outcomes:
         if bankroll <= 0:
-            path.append(0.0)
+            path.append(0)
             continue
 
         # Make sure we don't bet more than what we have
@@ -160,14 +161,49 @@ martingale_ruin = ruin_time(martingale_results)
 paroli_ruin = ruin_time(paroli_results)
 dalembert_ruin = ruin_time(dalembert_results)
 
-print(f"Final bankroll Flat: {flat_results[-1]:.2f}")
-print(f"Final bankroll Martingale: {martingale_results[-1]:.2f}")
-print(f"Final bankroll Paroli: {paroli_results[-1]:.2f}")
-print(f"Final bankroll D'Alembert: {dalembert_results[-1]:.2f}")
+print(f"Final bankroll Flat: {flat_results[-1]}")
+print(f"Final bankroll Martingale: {martingale_results[-1]}")
+print(f"Final bankroll Paroli: {paroli_results[-1]}")
+print(f"Final bankroll D'Alembert: {dalembert_results[-1]}")
 print(f"Flat ruin at hand: {flat_ruin}")
 print(f"Martingale ruin at hand: {martingale_ruin}")
 print(f"Paroli ruin at hand: {paroli_ruin}")
 print(f"D'Alembert ruin at hand: {dalembert_ruin}")
+
+# Now we calculate the expected value per hand for each strategy and variance of bankroll changes.
+
+import statistics as stats
+import math
+
+def strategy_stats(path, initial_bankroll):
+
+    # profit/loss per hand
+    changes = []
+    last = initial_bankroll
+    for p in path:
+        changes.append(p - last) # for each hand we calculate profit = new - previous bankroll after each round
+        last = p
+
+    if len(changes) == 0:
+        return 0, 0, 0
+
+    ev_per_hand = stats.mean(changes)
+    var_per_hand = stats.variance(changes)
+    vol_per_hand = math.sqrt(var_per_hand)
+
+    return ev_per_hand, var_per_hand, vol_per_hand
+
+# Computing the stats for each strategy; ev will be the same for each strategy, the strategies only change how we lose, not how much
+flat_ev, flat_var, flat_vol = strategy_stats(flat_results, initial_bankroll)
+mart_ev, mart_var, mart_vol = strategy_stats(martingale_results, initial_bankroll)
+par_ev, par_var, par_vol    = strategy_stats(paroli_results, initial_bankroll)
+dal_ev, dal_var, dal_vol    = strategy_stats(dalembert_results, initial_bankroll)
+
+print("Approximate stats per hand:")
+print(f"Flat:       EV = {flat_ev:.5f},   Var = {flat_var:.5f},   Vol = {flat_vol:.5f}")
+print(f"Martingale: EV = {mart_ev:.5f},   Var = {mart_var:.5f},   Vol = {mart_vol:.5f}")
+print(f"Paroli:     EV = {par_ev:.5f},    Var = {par_var:.5f},    Vol = {par_vol:.5f}")
+print(f"D'Alembert: EV = {dal_ev:.5f},    Var = {dal_var:.5f},    Vol = {dal_vol:.5f}")
 
 # from bacc import build_shoe, play_bacc
 
