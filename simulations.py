@@ -1,6 +1,9 @@
 from bacc import build_shoe, play_bacc
 import matplotlib.pyplot as plt
 
+# We simulate the game of Baccarat and compute the share of wins for each hand.
+# From that, we calculate the house edge for each hand.
+
 shoe = build_shoe()
 
 hands_number = 10000
@@ -9,9 +12,9 @@ banker_win = 0
 player_win = 0
 tie = 0
 
-banker_share = []
-player_share = []
-tie_share = []
+banker_share = 0
+player_share = 0
+tie_share = 0
 
 for i in range(1, hands_number + 1):
     result = play_bacc(shoe)
@@ -21,29 +24,21 @@ for i in range(1, hands_number + 1):
         banker_win += 1
     else:
         tie += 1
-    
-    banker_share.append(banker_win / i)
-    player_share.append(player_win / i)
-    tie_share.append(tie / i)
+
+# We calculate the share of wins for each hand.
+banker_share = banker_win/hands_number
+player_share = player_win/hands_number
+tie_share = tie/hands_number
+
+# We calcluate the house edge for each hand.
+player_ev = (player_win * 1 + banker_win * (-1) + tie * 0) / hands_number
 
 
-
-print("Banker wins", banker_win)
-print("Player wins", player_win)
-print("Ties", tie)
+print("Banker wins:", banker_win)
+print("Player wins:", player_win)
+print("Ties:", tie)
 print()
 print("Percentages")
-print("Banker", banker_win / hands_number * 100, "%")
-print("Player", player_win / hands_number * 100, "%")
-print("Tie", tie / hands_number * 100, "%")
-
-
-plt.plot(banker_share, label="Banker %")
-plt.plot(player_share, label="Player %")
-plt.plot(tie_share, label="Tie %")
-
-plt.xlabel("Hands played")
-plt.ylabel("Win %")
-plt.title("Share of wins")
-plt.legend()
-plt.show()
+print("Banker:", banker_share * 100, "%")
+print("Player:", player_share * 100, "%")
+print("Tie:", tie_share * 100, "%")
