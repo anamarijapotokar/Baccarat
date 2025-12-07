@@ -50,8 +50,12 @@ Both hands are given $2$ hands to start with, and the card values are then added
 \end{itemize}
 
 \newpage
-\noindent The Banker hand stands or draws one card as directed by the chart:
+\noindent The Banker drawing rules depend on whether the Player draws a third card:
 
+\begin{itemize}
+    \item If the Player \textbf{does not} draw a third card (i.e.\ the Player stands on a total of 6 or 7), then the Banker draws one card when their first two cards total \textbf{0--5}, and stands when their total is \textbf{6 or 7}.
+    \item If the Player \textbf{does} draw a third card, then the Banker follows the drawing rules described in the table below, which depend on both the Banker's total and the value of the Player's third card.
+\end{itemize}
 \begin{center}
 \begin{tabular}{|>{\raggedright\arraybackslash}p{5cm}|
                 >{\raggedright\arraybackslash}p{5cm}|
@@ -68,7 +72,7 @@ $8, 9$ & / & Natural stands. \\ \hline
 \end{tabular}
 \end{center}
  
-\noindent If the player didn't draw a third card, we treat it as if the Player's third card had value $0$. If the outcome is a tie, we do not get our pay in back.
+\noindent If the outcome is a tie, we get our pay in back.
 
 \subsection*{Additional bets}
 There is an additional bet called \textit{Pairs}, where you are betting yhat the first two cards on either the Banker's or the Player's hands are a pair.
