@@ -88,7 +88,6 @@ def simulate_martingale(outcomes, initial_bankroll, base_bet, bet_type):
 
 # THIRD STRATEGY: REVERSE MARTINGALE (PAROLI)
 # You start with a base bet; if you win, you double the next bet, and if you lose, you reset back to the base bet.
-
 def simulate_paroli(outcomes, initial_bankroll, base_bet, bet_type, max_bet=None):
     
     bankroll = initial_bankroll
