@@ -25,12 +25,12 @@ for i in range(1, hands_number + 1):
     else:
         tie += 1
 
-# We calculate the share of wins for each hand.
+# We calculate the share of wins for each bet.
 banker_share = banker_win / hands_number
 player_share = player_win / hands_number
 tie_share = tie / hands_number
 
-# We calcluate the house edge for each hand.
+# We calcluate the house edge for each bet.
 player_ev = (player_win * 1 + banker_win * (-1) + tie * 0) / hands_number
 banker_ev = (player_win * (-1) + banker_win * 0.95 + tie * 0) / hands_number
 tie_ev = (tie * 8 + (hands_number - tie) * (-1)) / hands_number
