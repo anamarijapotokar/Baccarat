@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 
 shoe = build_shoe()
 
-hands_number = 1000000
+hands_number = 10000000
 
 banker_win = 0
 player_win = 0
