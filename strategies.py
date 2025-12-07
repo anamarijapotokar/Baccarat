@@ -196,14 +196,14 @@ def strategy_stats(path, initial_bankroll):
 # Computing the stats for each strategy; ev will be the same for each strategy, the strategies only change how we lose, not how much
 flat_ev, flat_var, flat_vol = strategy_stats(flat_results, initial_bankroll)
 mart_ev, mart_var, mart_vol = strategy_stats(martingale_results, initial_bankroll)
-par_ev, par_var, par_vol    = strategy_stats(paroli_results, initial_bankroll)
-dal_ev, dal_var, dal_vol    = strategy_stats(dalembert_results, initial_bankroll)
+par_ev, par_var, par_vol = strategy_stats(paroli_results, initial_bankroll)
+dal_ev, dal_var, dal_vol = strategy_stats(dalembert_results, initial_bankroll)
 
 print("Approximate stats per hand:")
-print(f"Flat:       EV = {flat_ev:.5f},   Var = {flat_var:.5f},   Vol = {flat_vol:.5f}")
-print(f"Martingale: EV = {mart_ev:.5f},   Var = {mart_var:.5f},   Vol = {mart_vol:.5f}")
-print(f"Paroli:     EV = {par_ev:.5f},    Var = {par_var:.5f},    Vol = {par_vol:.5f}")
-print(f"D'Alembert: EV = {dal_ev:.5f},    Var = {dal_var:.5f},    Vol = {dal_vol:.5f}")
+print(f"Flat: EV = {flat_ev:.5f}, Var = {flat_var:.5f}, Vol = {flat_vol:.5f}")
+print(f"Martingale: EV = {mart_ev:.5f}, Var = {mart_var:.5f}, Vol = {mart_vol:.5f}")
+print(f"Paroli: EV = {par_ev:.5f}, Var = {par_var:.5f}, Vol = {par_vol:.5f}")
+print(f"D'Alembert: EV = {dal_ev:.5f}, Var = {dal_var:.5f}, Vol = {dal_vol:.5f}")
 
 # from bacc import build_shoe, play_bacc
 
