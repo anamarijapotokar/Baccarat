@@ -143,7 +143,7 @@ def simulate_dalembert(outcomes, initial_bankroll, base_bet, bet_type):
 
     return path
 
-# RUNNING AND COMPARING THE TWO
+# RUNNING AND COMPARING
 flat_results = simulate_flat(outcomes, initial_bankroll, base_bet, bet_type)
 martingale_results = simulate_martingale(outcomes, initial_bankroll, base_bet, bet_type)
 paroli_results     = simulate_paroli(outcomes, initial_bankroll, base_bet, bet_type)
