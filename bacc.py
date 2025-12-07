@@ -79,15 +79,21 @@ def play_bacc(shoe):
 
         banker_third = None
 
-        if player_third is not None:
-            player_third_value = values[player_third]
-        else:
-            player_third_value = 0
+        if player_third is None:
+            # Player didn't draw a third card
+            # Banker draws on 0–5, stands on 6–7
+            if banker_total <= 5:
+                banker_third = draw(shoe)
+                banker.append(banker_third)
+                banker_total = hand_value(banker)
         
-        if banker_draws_third(banker_total, player_third_value):
-            banker_third = draw(shoe)
-            banker.append(banker_third)
-            banker_total = hand_value(banker)
+        else:
+            # Player drew a third card
+            player_third_value = values[player_third]
+            if banker_draws_third(banker_total, player_third_value):
+                banker_third = draw(shoe)
+                banker.append(banker_third)
+                banker_total = hand_value(banker)
 
         return decide_outcome(player_total, banker_total)  
 

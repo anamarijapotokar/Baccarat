@@ -31,8 +31,8 @@ player_share = player_win / hands_number
 tie_share = tie / hands_number
 
 # We calcluate the house edge for each hand.
-player_ev = (player_win * 1 + banker_win * (-1) + tie * (-1)) / hands_number
-banker_ev = (player_win * (-1) + banker_win * 0.95 + tie * (-1)) / hands_number
+player_ev = (player_win * 1 + banker_win * (-1) + tie * 0) / hands_number
+banker_ev = (player_win * (-1) + banker_win * 0.95 + tie * 0) / hands_number
 tie_ev = (tie * 8 + (hands_number - tie) * (-1)) / hands_number
 
 player_house_edge = -player_ev
