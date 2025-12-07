@@ -1,4 +1,5 @@
-
+# First we define a new function whose output will tell us given what actully happened in the game
+# and what we bet on, how much money do we win or lose.
 def settle_bet(outcome, bet_type, stake, commission=0.05):
 
     if bet_type == "Player":
@@ -23,8 +24,6 @@ def settle_bet(outcome, bet_type, stake, commission=0.05):
         else:
             return -stake
 
-    else:
-        raise ValueError(f"Unknown bet_type: {bet_type}")
 
 from bacc import build_shoe, play_bacc
 
