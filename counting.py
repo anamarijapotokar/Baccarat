@@ -173,12 +173,12 @@ def simulate_tie_probability(
     return results
 
 results = simulate_tie_probability(
-    num_hands=1000,
+    num_hands=10000000,
     number_of_decks=8,
     count_weights=count_weights,
     bin_width=1.0,
-    min_true=-8,
-    max_true=8
+    min_true=-10,
+    max_true=10
 )
 
 for r in results:
@@ -186,3 +186,9 @@ for r in results:
         f"True count in [{r['bin_left']:.1f}, {r['bin_right']:.1f}): "
         f"hands={r['hands']}, p_tie={r['p_tie']:.4f}, EV_tie={r['ev_tie']:.4f}"
     )
+
+# Conclusion: this particular counting system isn't very useful. When we play a large number of hands, the probabilities do not exceed 10%.
+# We need a better counting system.
+
+# Observation: increasing min_true and max_true to 10 gives us p_tie greater than 11.11% and therefore >0 EV, and that happens when the shoe is odd-heavy; however, hands variable in those bins is extremely small in proportion to number of hands played, so that information is noisy
+
