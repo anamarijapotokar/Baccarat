@@ -11,7 +11,6 @@ KEY INSIGHT:
 True count becomes unstable in Baccarat due to:
 - Large shoe size (8 decks = 416 cards)
 - Division by small numbers near shoe end
-- Less penetration than Blackjack
 
 Running count may be more practical for Baccarat analysis.
 """
@@ -104,14 +103,9 @@ class CountedShoe:
         """Return approximate number of decks remaining."""
         return len(self.cards) / 52
     
-    def true_count(self):
-        """
-        Return true count (running count / decks remaining).
-        Returns None if calculation would be unstable (<1.5 decks).
-        """
-        decks = self.decks_remaining()
-        if decks < 1.5:
-            return None  # Unstable - don't use
+    def true_count(self, min_decks=1.5):
+        
+        decks = max(self.decks_remaining(), min_decks)
         return self.count / decks
     
     def reset(self):
@@ -128,7 +122,7 @@ def play_hand_counted(shoe):
     Play one hand of Baccarat.
     Returns outcome: 'Player', 'Banker', or 'Tie'
     """
-    # Deal initial cards
+    # Deal initial cards; in reality the dealer alternates between them but it doesnt matter here
     player = [shoe.draw(), shoe.draw()]
     banker = [shoe.draw(), shoe.draw()]
     
@@ -149,7 +143,6 @@ def play_hand_counted(shoe):
     # Banker draws third card rule
     if player_third is None:
         if banker_total <= 5:
-            shoe.draw()
             banker.append(shoe.draw())
             banker_total = hand_value(banker)
     else:
@@ -261,8 +254,8 @@ def simulate_running_count(
     hands_recorded = 0
     
     for _ in range(num_hands):
-        # Reset at 1 deck (52 cards)
-        if shoe.cards_remaining() < 52:
+        # Reset at 1.5 deck (78 cards)
+        if shoe.cards_remaining() < 78:
             shoe.reset()
         
         # Get running count BEFORE playing
@@ -361,7 +354,7 @@ def analyze_results(results, method_name, system_name):
     """Analyze and print results for one method."""
     
     if not results:
-        print(f"\n❌ No results for {method_name}")
+        print(f"\n No results for {method_name}")
         return
     
     total_hands = sum(r['hands'] for r in results)
@@ -375,7 +368,7 @@ def analyze_results(results, method_name, system_name):
     print(f"Positive EV hands: {pos_hands:,} ({pos_hands/total_hands*100:.3f}%)")
     
     if not positive_ev:
-        print("❌ No positive EV situations found")
+        print(" No positive EV situations found")
         return
     
     # Best opportunity
@@ -388,7 +381,7 @@ def analyze_results(results, method_name, system_name):
     
     # Average in +EV situations
     avg_ev = sum(r['ev_tie'] * r['hands'] for r in positive_ev) / pos_hands
-    print(f"\n💰 Average EV (in +EV situations): {avg_ev:.4f} ({avg_ev*100:.2f}%)")
+    print(f"\n Average EV (in +EV situations): {avg_ev:.4f} ({avg_ev*100:.2f}%)")
     
     # Frequency
     freq = pos_hands / total_hands * 100
