@@ -38,10 +38,12 @@ tie_share = tie / hands_number
 player_ev = (player_win * 1 + banker_win * (-1) + tie * 0) / hands_number
 banker_ev = (player_win * (-1) + banker_win * 0.95 + tie * 0) / hands_number
 tie_ev = (tie * 8 + (hands_number - tie) * (-1)) / hands_number
+banker_no_commission_ev = (player_win * (-1) + banker_win * 1 + tie * 0) / hands_number
 
 player_house_edge = -player_ev
 banker_house_edge = -banker_ev
 tie_house_edge    = -tie_ev
+banker_no_commision_house_edge = -banker_no_commission_ev
 
 print("Banker wins:", banker_win)
 print("Player wins:", player_win)
@@ -55,8 +57,10 @@ print()
 print("EV per hand (Player bet):", player_ev)
 print("EV per hand (Banker bet):", banker_ev)
 print("EV per hand (Tie bet):", tie_ev)
+print("EV per hand (Banker no commision bet):", banker_no_commission_ev)
 print()
 print("House edge estimates:")
 print("Player bet:",  player_house_edge * 100, "%")
 print("Banker bet:",  banker_house_edge * 100, "%")
 print("Tie bet:   ",  tie_house_edge * 100, "%")
+print("Banker no commision bet:",  banker_no_commision_house_edge * 100, "%")
