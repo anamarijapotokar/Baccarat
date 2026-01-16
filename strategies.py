@@ -1,3 +1,7 @@
+import matplotlib.pyplot as plt
+import pandas as pd
+
+
 # First we define a new function whose output will tell us given what actully happened in the game
 # and what we bet on, how much money do we win or lose.
 def settle_bet(outcome, bet_type, stake, commission=0.05):
@@ -30,7 +34,7 @@ from bacc import build_shoe, play_bacc
 hands_number = 100000
 initial_bankroll = 100
 base_bet = 1
-bet_type = "Banker"  # or Player or Tie
+bet_type = "Player"  # or Player or Tie
 
 # Generating the outcomes once:
 shoe = build_shoe()
@@ -205,70 +209,80 @@ print(f"Martingale: EV = {mart_ev:.5f}, Var = {mart_var:.5f}, Vol = {mart_vol:.5
 print(f"Paroli: EV = {par_ev:.5f}, Var = {par_var:.5f}, Vol = {par_vol:.5f}")
 print(f"D'Alembert: EV = {dal_ev:.5f}, Var = {dal_var:.5f}, Vol = {dal_vol:.5f}")
 
-# from bacc import build_shoe, play_bacc
 
-# shoe = build_shoe()
-# hands_number = 10000000
 
-# bankroll_flat = 100
-# bankroll_martingale = 100
-# bet = 1
+num_simulations = 20      
 
-# # izbereš Banker/Player/TIe
-# bet_type = "Banker"
+            
+strategies = {
+    "Flat": simulate_flat,
+    "Martingale": simulate_martingale,
+    "Paroli": simulate_paroli,
+    "D'Alembert": simulate_dalembert
+}
 
-# flat_results = []
-# martingale_results = []
-# current_bet = bet
 
-# for i in range(1, hands_number + 1):
-#     result = play_bacc(shoe)
+def truncate_at_ruin(path):
+    for i, b in enumerate(path, start=1):
+        if b <= 0:
+            return path[:i]
+    return path
 
-    
-#     if bankroll_flat <= 0:
-#         flat_results.append(0)
-#     else:
-#         if result == bet_type:
-#             if bet_type == "Tie":
-#                 bankroll_flat += bet * 8
-#             else:
-#                 bankroll_flat += bet
-#         else:
-#             bankroll_flat -= bet
-#         flat_results.append(bankroll_flat)
 
-#     if bankroll_flat <= 0:
-#         print(f"Bankrup flat at hand {i} by betting on {bet_type}")
-#         break
-# else:
-#     print(f"Flat didn't bankrupt by betting on {bet_type}")
+average_ruin_times = {}
+for name, fn in strategies.items():
+    ruin_times = []
+    for sim in range(num_simulations):
+        shoe = build_shoe()
+        outcomes = [play_bacc(shoe) for _ in range(hands_number)]
+        path = fn(outcomes, initial_bankroll, base_bet, bet_type)
+        t = ruin_time(path)
+        if t is not None:
+            ruin_times.append(t)
+    average_ruin_times[name] = (sum(ruin_times)/len(ruin_times)) if ruin_times else None
 
-# #print(flat_results)
-# print()
 
-# for i in range(1, hands_number + 1):
-#     result = play_bacc(shoe)
 
-#     if bankroll_martingale <= 0:
-#         martingale_results.append(0)
-#     else:
-#         if result == bet_type:
-#             if bet_type == "Tie":
-#                 bankroll_martingale += current_bet * 8
-#             else:
-#                 bankroll_martingale += current_bet
-#             current_bet = bet  
-#         else:
-#             bankroll_martingale -= current_bet
-#             current_bet *= 2  
-#             if current_bet > bankroll_martingale:
-#                 current_bet = bankroll_martingale
-#         martingale_results.append(bankroll_martingale)
+print(f"Average time to ruin over {num_simulations} simulations:")
+for name, avg_time in average_ruin_times.items():
+    if avg_time is not None:
+        print(f"{name}: {avg_time:.1f} hands")
+    else:
+        print(f"{name}: no ruin observed in {num_simulations} simulations")
 
-    
-#     if  bankroll_martingale <= 0:
-#         print(f"Bankrupt martingale at hand {i} by betting on {bet_type}")
-#         break
-# else:
-#     print(f"Martingale didn't bankrupt by betting on {bet_type}")
-# #print(martingale_results)
+
+
+ruin_df = pd.DataFrame(list(average_ruin_times.items()), columns=["Strategy", "Average_Ruin_Hands"])
+
+# Replace None with a descriptive string if you want
+ruin_df["Average_Ruin_Hands"] = ruin_df["Average_Ruin_Hands"].apply(
+    lambda x: x if x is not None else "No ruin observed"
+)
+ruin_df.to_csv("avg_ruin_time.csv", index=False)
+
+
+
+
+
+max_hands = 3000
+
+plt.figure(figsize=(4,3))
+plt.plot(flat_results[:max_hands], label="Flat Betting")
+plt.plot(martingale_results[:max_hands], label="Martingale")
+plt.plot(paroli_results[:max_hands], label="Paroli")
+plt.plot(dalembert_results[:max_hands], label="D'Alembert")
+
+plt.xlabel("Število iger")
+plt.ylabel("Bankroll")
+plt.title(f"Čas do propada različnih strategij")
+plt.legend()
+plt.grid(alpha=0.3)
+
+plt.savefig("ruin_time.png", dpi=300, bbox_inches="tight")
+plt.show()
+
+
+
+
+
+
