@@ -1,5 +1,6 @@
 from bacc import build_shoe, play_bacc
 import matplotlib.pyplot as plt
+import pandas as pd
 
 # We repeated the simulation multiple times and the estimates were stable within about 0.1 percentage point, so we use random.seed for the sake of reproducibility of our results.
 import random
@@ -10,7 +11,7 @@ random.seed(42)
 
 shoe = build_shoe()
 
-hands_number = 10000000
+hands_number = 1000
 
 banker_win = 0
 player_win = 0
@@ -64,3 +65,10 @@ print("Player bet:",  player_house_edge * 100, "%")
 print("Banker bet:",  banker_house_edge * 100, "%")
 print("Tie bet:   ",  tie_house_edge * 100, "%")
 print("Banker no commision bet:",  banker_no_commision_house_edge * 100, "%")
+
+df = pd.DataFrame({
+    "Outcome": ["Player", "Banker", "Tie"],
+    "Wins": [player_win, banker_win, tie],
+})
+
+df.to_csv("baccarat_results.csv", index=False)
