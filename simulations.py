@@ -11,7 +11,7 @@ random.seed(42)
 
 shoe = build_shoe()
 
-hands_number = 1000
+hands_number = 10000
 
 banker_win = 0
 player_win = 0
@@ -21,6 +21,13 @@ banker_share = 0
 player_share = 0
 tie_share = 0
 
+checkpoints = []
+banker_ev_history = []
+player_ev_history = []
+tie_ev_history = []
+
+step = 100
+
 for i in range(1, hands_number + 1):
     result = play_bacc(shoe)
     if result == "Player":
@@ -29,6 +36,17 @@ for i in range(1, hands_number + 1):
         banker_win += 1
     else:
         tie += 1
+    
+    if i % step == 0:
+        # EV calculations
+        banker_ev = (player_win * (-1) + banker_win * 0.95) / i
+        player_ev = (player_win * 1 + banker_win * (-1)) / i
+        tie_ev    = (tie * 8 + (i - tie) * (-1)) / i
+
+        checkpoints.append(i)
+        banker_ev_history.append(banker_ev)
+        player_ev_history.append(player_ev)
+        tie_ev_history.append(tie_ev)
 
 # We calculate the share of wins for each bet.
 banker_share = banker_win / hands_number
@@ -68,7 +86,53 @@ print("Banker no commision bet:",  banker_no_commision_house_edge * 100, "%")
 
 df = pd.DataFrame({
     "Outcome": ["Player", "Banker", "Tie"],
-    "Wins": [player_win, banker_win, tie],
+    "Win percentage": [player_share, banker_share, tie_share]
+    
 })
 
 df.to_csv("baccarat_results.csv", index=False)
+
+df2 = pd.DataFrame({
+    "Outcome": ["Player", "Banker", "Tie"],
+    "Expected value": [player_ev, banker_ev, tie_ev]
+    
+})
+
+df2.to_csv("baccarat_EV.csv", index=False)
+
+
+bets = ["Player", "Banker", "Tie", "Banker brez comisson"]
+
+evs = [player_ev, banker_ev, tie_ev, banker_no_commission_ev]
+
+        
+
+
+plt.figure(figsize=(4,3))
+plt.bar(bets, evs)
+plt.axhline(0, linewidth=1)
+plt.title("EV na stavo")
+plt.xticks(rotation=15)
+plt.grid(axis="y", alpha=0.3)
+
+plt.savefig("ev_per_bet.png", dpi=300, bbox_inches="tight")
+plt.close()
+
+
+
+plt.figure(figsize=(4,3))
+
+plt.plot(checkpoints, banker_ev_history, label="Banker")
+plt.plot(checkpoints, player_ev_history, label="Player")
+plt.plot(checkpoints, tie_ev_history, label="Tie")
+
+plt.axhline(0, linewidth=1)
+
+plt.xlabel("Število iger")
+plt.ylabel("EV na stavo")
+plt.title("EV konvergenca")
+plt.legend()
+plt.grid(alpha=0.3)
+
+plt.savefig("ev_konvergenca.png", dpi=300, bbox_inches="tight")
+plt.close()

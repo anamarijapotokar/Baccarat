@@ -1,4 +1,4 @@
-Outcome,Wins
-Player,461
-Banker,442
-Tie,97
+Outcome,Win percentage
+Player,0.4473
+Banker,0.459
+Tie,0.0937
